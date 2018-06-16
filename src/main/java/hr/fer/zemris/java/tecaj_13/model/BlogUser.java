@@ -1,0 +1,197 @@
+package hr.fer.zemris.java.tecaj_13.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+/**
+ * Class represents every blog user <br>
+ * Every blog user is described with attributes:
+ * <ol>
+ * <li>id</li>
+ * <li>first and last name</li>
+ * <li>password calculated as SHA-1 hash</li>
+ * <li>nickname</li>
+ * <li>email</li>
+ * </ol>
+ * <br>
+ * 
+ * One of attributes requirements is that <code>nickname</code> must be
+ * unique,there cannot be two users with same nickname
+ * 
+ * @author Mihael
+ *
+ */
+@Entity
+@Table(name = "blog_users")
+public class BlogUser {
+	/**
+	 * User's id
+	 */
+	private Long id;
+	/**
+	 * User's first name
+	 */
+	private String firstName;
+	/**
+	 * User's last name
+	 */
+	private String lastName;
+	/**
+	 * User's nickname
+	 */
+	private String nick;
+	/**
+	 * User's hashed password
+	 */
+	private String passwordHash;
+	/**
+	 * User's email address
+	 */
+	private String email;
+
+	/**
+	 * Constructor for new blog user
+	 * 
+	 * @param id
+	 *            - blog user's id
+	 * @param firstName
+	 *            - users's first name
+	 * @param lastName
+	 *            - users's last name
+	 * @param nick
+	 *            - users's nickname
+	 * @param passwordHash
+	 *            - users's password
+	 * @param email
+	 *            - users's email
+	 */
+	public BlogUser(Long id, String firstName, String lastName, String nick, String passwordHash, String email) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nick = nick;
+		this.passwordHash = passwordHash;
+		this.email = email;
+	}
+
+	/**
+	 * Default constructor
+	 */
+	public BlogUser() {
+	}
+
+	/**
+	 * Method returns user's id
+	 * 
+	 * @return user's id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Method sets user's id
+	 * 
+	 * @param id
+	 *            - new user's id
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * Method returns user's first name
+	 * 
+	 * @return user's first name
+	 */
+	public String getFirstName() {
+		return firstName;
+	}
+
+	/**
+	 * Method sets user's first name
+	 * 
+	 * @param firstName
+	 *            - new user's first name
+	 */
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	/**
+	 * Method returns user's last name
+	 * 
+	 * @return user's last name
+	 */
+	public String getLastName() {
+		return lastName;
+	}
+
+	/**
+	 * Method sets user's last name
+	 * 
+	 * @param lastName
+	 *            - user's last name
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	/**
+	 * Method returns user's nickname
+	 * 
+	 * @return user's nickname
+	 */
+	public String getNick() {
+		return nick;
+	}
+
+	/**
+	 * Method sets user's nickname
+	 * 
+	 * @param nick
+	 *            - user's nickname
+	 */
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	/**
+	 * Method returns user's password in hashed format
+	 * 
+	 * @return password in hashed format
+	 */
+	public String getPasswordHash() {
+		return passwordHash;
+	}
+
+	/**
+	 * Method sets hashed user's password
+	 * 
+	 * @param passwordHash
+	 *            - new password
+	 */
+	public void setPasswordHash(String passwordHash) {
+		this.passwordHash = passwordHash;
+	}
+
+	/**
+	 * Method returns current user's email
+	 * 
+	 * @return current stored email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * Method sets user's email address
+	 * 
+	 * @param email
+	 *            - new users's email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+}
