@@ -63,13 +63,36 @@ public interface DAO {
 	 */
 	public List<BlogEntry> getBlogEntries(Long id);
 
+	/**
+	 * Method adds comment to blog entry
+	 * 
+	 * @param comment
+	 *            - comment
+	 */
 	public void addComment(BlogComment comment);
 
+	/**
+	 * Method updates entry
+	 * 
+	 * @param entry
+	 *            - entry
+	 */
 	public void editEntry(BlogEntry entry);
 
+	/**
+	 * Method adds entry
+	 * 
+	 * @param entry
+	 *            - entry
+	 */
 	public void addEntry(BlogEntry entry);
 
-
+	/**
+	 * Method adds user after registration
+	 * 
+	 * @param blogUser
+	 *            - blog user
+	 */
 	public void addUser(BlogUser blogUser);
 
 }

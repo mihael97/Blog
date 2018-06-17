@@ -34,11 +34,11 @@ public class AuthorServlet extends HttpServlet {
 		req.setAttribute("nickname", extraArray[1]);
 
 		if (extraArray.length == 2) {
-			BlogUser user=DAOProvider.getDAO().getUser(extraArray[1]);
+			BlogUser user = DAOProvider.getDAO().getUser(extraArray[1]);
 			List<BlogEntry> entries = DAOProvider.getDAO().getBlogEntries(user.getId());
 			req.setAttribute("entries", entries);
 
-			req.getRequestDispatcher("/WEB-INF/pages/author.jsp");
+			req.getRequestDispatcher("/WEB-INF/pages/author.jsp").forward(req, resp);
 
 			return;
 		}
@@ -46,26 +46,27 @@ public class AuthorServlet extends HttpServlet {
 		if (extraArray[2].equals("new") || extraArray[2].equals("edit")) {
 			if (req.getSession().getAttribute(Constants.NICK).equals(extraArray[1])) {
 				if (extraArray[2].equals("new")) {
-					req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/newentry.jsp");
+					req.getRequestDispatcher("/WEB-INF/pages/newentry.jsp").forward(req, resp);
 				} else if (extraArray[2].equals("edit")) {
-					req.getRequestDispatcher(req.getContextPath() + "/servleti/edit.jsp");
+					req.setAttribute("entryID", extraArray[3]);
+					req.getRequestDispatcher("/WEB-INF/pages/edit.jsp").forward(req, resp);
 				}
 			} else {
-				req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/validationError.jsp");
+				req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
 			}
 		} else {
 			try {
 				long entryId = Long.parseLong(extraArray[2]);
-				
+
 				BlogEntry entry = DAOProvider.getDAO().getBlogEntry(entryId);
 
 				if (entry == null || !entry.getCreator().getNick().equals(extraArray[1])) {
-					req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/validationError.jsp");
+					req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
 					return;
 				}
 
 				req.setAttribute("entry", entry);
-				req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/entry.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/pages/entry.jsp").forward(req, resp);
 			} catch (NumberFormatException e) {
 				throw new RuntimeException();
 			}

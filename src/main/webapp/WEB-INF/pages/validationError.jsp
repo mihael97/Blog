@@ -10,7 +10,6 @@
 <body>
 	<h2>You tried do access informations which cannot be showed to
 		current registered user!</h2>
-	<a href="<%=request.getContextPath()%>/servleti/index.jsp">Home
-		page</a>
+	<a href="<%=request.getContextPath()%>/servleti/main">Home page</a>
 </body>
 </html>

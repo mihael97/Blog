@@ -22,7 +22,7 @@ import hr.fer.zemris.java.tecaj_13.util.Constants;
  * @author Mihael
  *
  */
-@WebServlet("/servleti/comment/")
+@WebServlet("/servleti/comment")
 public class CommentServlet extends HttpServlet {
 	/**
 	 * serialVersionUID
@@ -38,11 +38,16 @@ public class CommentServlet extends HttpServlet {
 	 *            - {@link HttpServletResponse}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String message = req.getParameter("message");
 		BlogEntry entry = DAOProvider.getDAO().getBlogEntry(Long.parseLong(req.getParameter("entryID")));
-		BlogUser creator = DAOProvider.getDAO().getUser(String.valueOf(req.getSession().getAttribute(Constants.NICK)));
+		BlogUser creator = null;
 
+		creator = DAOProvider.getDAO().getUser(String.valueOf(req.getSession().getAttribute(Constants.NICK)));
+		if (creator == null) {
+			req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
+			return;
+		}
 		BlogComment comment = new BlogComment();
 
 		comment.setMessage(message);

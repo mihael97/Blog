@@ -1,3 +1,5 @@
+<%@page import="hr.fer.zemris.java.tecaj_13.util.Constants"%>
+<%@page import="hr.fer.zemris.java.tecaj_13.dao.DAOProvider"%>
 <%@page import="hr.fer.zemris.java.tecaj_13.model.BlogEntry"%>
 <%@ page contentType="text/html; charset=UTF-8
 	" pageEncoding="UTF-8"%>
@@ -5,6 +7,26 @@
 <%@  page session="true"%>
 <!DOCTYPE>
 <html>
+
+<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
+<br>
+
+<%
+	if (request.getSession().getAttribute(Constants.NICK) != null) {
+%>
+<p>
+	Hello<br>
+	<%=request.getSession().getAttribute(Constants.NICK)%><a
+		href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
+</p>
+<%
+	} else {
+%>
+<p>There is no loged user</p>
+<%
+	}
+%>
+
 <%
 	BlogEntry entry = (BlogEntry) request.getAttribute("entry");
 	String nick = String.valueOf(request.getAttribute("nickname"));
@@ -19,7 +41,8 @@
 
 	if (nick.equals(currentUser)) {
 %>
-<a href="<%=request.getContextPath()%>/servleti/author/<%=nick%>/edit">Edit
+<a
+	href="<%=request.getContextPath()%>/servleti/author/<%=nick%>/edit/<%=entry.getId()%>">Edit
 	entry</a>
 <%
 	}
@@ -32,7 +55,7 @@
 </c:forEach>
 <h3>Add new comment</h3>
 <%
-	if (currentUser != null) {
+	if (String.valueOf(request.getSession().getAttribute("current.user.nick")) != null) {
 %>
 <form action="<%=request.getContextPath()%>/servleti/comment"
 	method="post">

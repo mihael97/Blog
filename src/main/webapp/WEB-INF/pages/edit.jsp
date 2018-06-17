@@ -1,3 +1,4 @@
+<%@page import="hr.fer.zemris.java.tecaj_13.util.Constants"%>
 <%@page import="hr.fer.zemris.java.tecaj_13.dao.DAOProvider"%>
 <%@page import="hr.fer.zemris.java.tecaj_13.model.BlogEntry"%>
 <%@ page contentType="text/html; charset=UTF-8
@@ -7,13 +8,31 @@
 <!DOCTYPE>
 <html>
 <body>
+	<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
+	<br>
+
 	<%
-		BlogEntry entry = DAOProvider.getDAO().getBlogEntry(Long.parseLong(request.getParameter("entryID")));
+		BlogEntry entry = DAOProvider.getDAO()
+				.getBlogEntry(Long.parseLong(String.valueOf(request.getAttribute("pollID"))));
+		if (request.getSession().getAttribute(Constants.NICK) != null) {
 	%>
+	<p>
+		Hello<br>
+		<%=request.getSession().getAttribute(Constants.NICK)%><a
+			href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
+	</p>
+	<%
+		} else {
+	%>
+	<p>There is no loged user</p>
+	<%
+		}
+	%>
+
 	<h2>Edit entry</h2>
-	<form action="<%=request.getContextPath()%>/servleti/edit">
-		<input type="hidden" name="entryID"
-			value=<%=Long.parseLong(request.getParameter("entryID"))%>>
+	<form action="<%=request.getContextPath()%>/servleti/edit"
+		method="post">
+		<input type="hidden" name="entryID" value=<%=entry.getId()%>>
 		Title:<input type="text" name="title" value="<%=entry.getTitle()%>"><br>
 		Text
 		<textarea rows="10" cols="50" name="text"><%=entry.getText()%></textarea>

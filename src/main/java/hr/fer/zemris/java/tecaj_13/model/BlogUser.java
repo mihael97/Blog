@@ -1,9 +1,15 @@
 package hr.fer.zemris.java.tecaj_13.model;
 
+import java.util.List;
+
+import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import net.bytebuddy.matcher.FailSafeMatcher;
@@ -28,6 +34,7 @@ import net.bytebuddy.matcher.FailSafeMatcher;
  */
 @Entity
 @Table(name = "blog_users")
+@Cacheable(true)
 public class BlogUser {
 	/**
 	 * User's id
@@ -53,6 +60,8 @@ public class BlogUser {
 	 * User's email address
 	 */
 	private String email;
+
+	private List<BlogEntry> entries;
 
 	/**
 	 * Constructor for new blog user
@@ -204,6 +213,15 @@ public class BlogUser {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+	public List<BlogEntry> getEntries() {
+		return entries;
+	}
+
+	public void setEntries(List<BlogEntry> entries) {
+		this.entries = entries;
 	}
 
 	@Override

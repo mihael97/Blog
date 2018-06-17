@@ -1,3 +1,4 @@
+<%@page import="hr.fer.zemris.java.tecaj_13.util.Constants"%>
 <%@ page contentType="text/html; charset=UTF-8
 	" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -11,6 +12,26 @@
 		Object str = req.getAttribute(string);
 		return str == null ? "" : String.valueOf(str);
 	}%>
+
+	<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
+	<br>
+
+	<%
+		if (request.getSession().getAttribute(Constants.NICK) != null) {
+	%>
+	<p>
+		Hello<br>
+		<%=request.getSession().getAttribute(Constants.NICK)%><a
+			href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
+	</p>
+	<%
+		} else {
+	%>
+	<p>There is no loged user</p>
+	<%
+		}
+	%>
+
 	<h1>New user registration</h1>
 	<form action="<%=request.getContextPath()%>/servleti/register"
 		method="post">

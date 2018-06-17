@@ -14,7 +14,7 @@ import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
 
-@WebServlet("/servleti/newEntry/")
+@WebServlet("/servleti/newentry")
 public class EntryServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

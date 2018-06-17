@@ -2,7 +2,7 @@ package hr.fer.zemris.java.tecaj_13.util;
 
 /**
  * Abstract class contains keys for map storing of informations about current
- * active user
+ * active user a
  * 
  * @author Mihael
  *

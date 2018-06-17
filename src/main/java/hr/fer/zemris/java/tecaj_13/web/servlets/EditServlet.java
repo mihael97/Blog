@@ -12,10 +12,10 @@ import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
 
-@WebServlet("/servleti/edit/")
+@WebServlet("/servleti/edit")
 public class EditServlet extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Long entryID = Long.parseLong(req.getParameter("entryID"));
 		String text = req.getParameter("text");
 		String title = req.getParameter("title");
@@ -26,7 +26,7 @@ public class EditServlet extends HttpServlet {
 		entry.setTitle(title);
 
 		DAOProvider.getDAO().editEntry(entry);
-		
+
 		resp.sendRedirect(
 				req.getContextPath() + "/servleti/author/" + (String) req.getSession().getAttribute(Constants.NICK));
 	}
