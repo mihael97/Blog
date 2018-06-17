@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +26,7 @@ import hr.fer.zemris.java.tecaj_13.util.Util;
  * @author Mihael
  *
  */
+@WebServlet("/servleti/register")
 public class RegisterServlet extends HttpServlet {
 	/**
 	 * serialVersionUID
@@ -35,6 +37,12 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	private static final String EMAIL_PATTERN = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
 
+	/**
+	 * Method accepts registration parameters by URL parameters and checks if user
+	 * can be registered.<br>
+	 * If user with same user name doesn't exist,method will register new user.
+	 * Otherwise,request is redirected to registration page with appropriate message
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nick = req.getParameter("nick");
@@ -86,7 +94,7 @@ public class RegisterServlet extends HttpServlet {
 			return true;
 		}
 
-		return !DAOProvider.getDAO().checkNick(nick);
+		return DAOProvider.getDAO().getUser(nick) == null;
 	}
 
 	/**

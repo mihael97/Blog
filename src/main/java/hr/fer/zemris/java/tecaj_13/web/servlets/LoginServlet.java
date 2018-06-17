@@ -1,7 +1,69 @@
 package hr.fer.zemris.java.tecaj_13.web.servlets;
 
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
+import hr.fer.zemris.java.tecaj_13.model.BlogUser;
+import hr.fer.zemris.java.tecaj_13.util.Constants;
+
+/**
+ * Class extends {@link HttpServlet} and provides functionality for login
+ * 
+ * @author Mihael
+ *
+ */
+@WebServlet("/servleti/login")
 public class LoginServlet extends HttpServlet {
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Method receives login paramters by URL parameters and checks if user with
+	 * given password and user name exists
+	 * 
+	 * @param req
+	 *            - {@link HttpServletRequest}
+	 * @param resp
+	 *            - {@link HttpServletResponse}
+	 */
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String user = req.getParameter("nick");
+		String password = req.getParameter("password");
+
+		if (DAOProvider.getDAO().checkUser(user, password)) {
+			addInSession(req, user, password);
+		} else {
+			req.setAttribute("nickname", user);
+			req.setAttribute("loginError", "Invalid user name or password");
+			req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/index.jsp").forward(req, resp);
+		}
+	}
+
+	/**
+	 * Method adds in <code>request session</code> informations about current active
+	 * user
+	 * 
+	 * @param req
+	 *            - {@link HttpServletRequest}
+	 * @param userName
+	 *            - user name
+	 * @param password
+	 *            - password
+	 */
+	private void addInSession(HttpServletRequest req, String userName, String password) {
+		BlogUser user = DAOProvider.getDAO().getUser(userName);
+
+		req.getSession().setAttribute(Constants.ID, user.getId());
+		req.getSession().setAttribute(Constants.FIRST_NAME, user.getFirstName());
+		req.getSession().setAttribute(Constants.LAST_NAME, user.getLastName());
+		req.getSession().setAttribute(Constants.NICK, user.getNick());
+	}
 }
