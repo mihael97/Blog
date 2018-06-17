@@ -2,6 +2,7 @@ package hr.fer.zemris.java.tecaj_13.dao;
 
 import java.util.List;
 
+import hr.fer.zemris.java.tecaj_13.model.BlogComment;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 
@@ -61,5 +62,14 @@ public interface DAO {
 	 * @return {@link List} of {@link BlogEntry}s which owner is given user
 	 */
 	public List<BlogEntry> getBlogEntries(String user);
+
+	public void addComment(BlogComment comment);
+
+	public void editEntry(BlogEntry entry);
+
+	public void addEntry(BlogEntry entry);
+
+
+	public void addUser(BlogUser blogUser);
 
 }

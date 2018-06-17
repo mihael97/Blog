@@ -1,3 +1,4 @@
+<%@page import="hr.fer.zemris.java.tecaj_13.util.Constants"%>
 <%@page import="hr.fer.zemris.java.tecaj_13.model.BlogUser"%>
 <%@page import="java.util.List"%>
 <%@page import="hr.fer.zemris.java.tecaj_13.dao.DAOProvider"%>
@@ -52,5 +53,14 @@
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
+
+	<%
+		if (request.getSession().getAttribute(Constants.NICK) != null) {
+	%>
+	<a href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
+	<%
+		}
+	%>
+
 </body>
 </html>

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * @author Mihael
  *
  */
-@WebServlet("/servleti/main")
 public class MainServlet extends HttpServlet {
 	/**
 	 * serialVersionUID
@@ -31,6 +30,6 @@ public class MainServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/index.jsp");
+		req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
 	}
 }

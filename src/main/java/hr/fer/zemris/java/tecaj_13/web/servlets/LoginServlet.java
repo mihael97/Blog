@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
 import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
+import hr.fer.zemris.java.tecaj_13.util.Util;
 
 /**
  * Class extends {@link HttpServlet} and provides functionality for login
@@ -38,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		String user = req.getParameter("nick");
 		String password = req.getParameter("password");
 
-		if (DAOProvider.getDAO().checkUser(user, password)) {
+		if (DAOProvider.getDAO().checkUser(user, Util.hashPassword(password))) {
 			addInSession(req, user, password);
 		} else {
 			req.setAttribute("nickname", user);

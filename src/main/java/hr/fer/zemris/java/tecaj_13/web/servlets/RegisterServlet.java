@@ -55,6 +55,8 @@ public class RegisterServlet extends HttpServlet {
 			blogUser.setFirstName(req.getParameter("firstName"));
 			blogUser.setLastName(req.getParameter("lastName"));
 			blogUser.setPasswordHash(Util.hashPassword(req.getParameter("password")));
+			
+			DAOProvider.getDAO().addUser(blogUser);
 		} else { // error happened
 			req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/register.jsp");
 		}

@@ -6,6 +6,7 @@ import javax.persistence.Query;
 
 import hr.fer.zemris.java.tecaj_13.dao.DAO;
 import hr.fer.zemris.java.tecaj_13.dao.DAOException;
+import hr.fer.zemris.java.tecaj_13.model.BlogComment;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 
@@ -47,6 +48,26 @@ public class JPADAOImpl implements DAO {
 		Query query = JPAEMProvider.getEntityManager().createQuery("SELECT a FROM BlogEntry AS a WHERE a.creator:=o");
 		query.setParameter("o", user);
 		return (List<BlogEntry>) query.getResultList();
+	}
+
+	@Override
+	public void addComment(BlogComment comment) {
+		JPAEMProvider.getEntityManager().persist(comment);
+	}
+
+	@Override
+	public void editEntry(BlogEntry entry) {
+		JPAEMProvider.getEntityManager().merge(entry);
+	}
+
+	@Override
+	public void addEntry(BlogEntry entry) {
+		JPAEMProvider.getEntityManager().persist(entry);
+	}
+
+	@Override
+	public void addUser(BlogUser blogUser) {
+		JPAEMProvider.getEntityManager().persist(blogUser);
 	}
 
 }

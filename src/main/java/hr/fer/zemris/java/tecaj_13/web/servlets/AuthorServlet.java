@@ -44,9 +44,9 @@ public class AuthorServlet extends HttpServlet {
 		if (extraArray[2].equals("new") || extraArray[2].equals("edit")) {
 			if (req.getSession().getAttribute(Constants.NICK).equals(extraArray[1])) {
 				if (extraArray[2].equals("new")) {
-					req.getRequestDispatcher(req.getContextPath() + "/servleti/newEntry");
+					req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/newentry.jsp");
 				} else if (extraArray[2].equals("edit")) {
-					req.getRequestDispatcher(req.getContextPath() + "/servleti/editEntry");
+					req.getRequestDispatcher(req.getContextPath() + "/servleti/edit.jsp");
 				}
 			} else {
 				req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/validationError.jsp");

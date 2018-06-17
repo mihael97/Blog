@@ -47,6 +47,8 @@ public class CommentServlet extends HttpServlet {
 		comment.setBlogEntry(entry);
 		comment.setUsersEMail(creator.getEmail());
 		comment.setPostedOn(new Date());
+		
+		DAOProvider.getDAO().addComment(comment);
 
 		resp.sendRedirect(
 				req.getContextPath() + "/servleti/author/" + entry.getCreator().getNick() + "/" + entry.getId());

@@ -1,7 +1,12 @@
 package hr.fer.zemris.java.tecaj_13.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
+import net.bytebuddy.matcher.FailSafeMatcher;
 
 /**
  * Class represents every blog user <br>
@@ -85,6 +90,8 @@ public class BlogUser {
 	 * 
 	 * @return user's id
 	 */
+	@Id
+	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
@@ -104,6 +111,7 @@ public class BlogUser {
 	 * 
 	 * @return user's first name
 	 */
+	@Column(nullable = false)
 	public String getFirstName() {
 		return firstName;
 	}
@@ -123,6 +131,7 @@ public class BlogUser {
 	 * 
 	 * @return user's last name
 	 */
+	@Column(nullable = false)
 	public String getLastName() {
 		return lastName;
 	}
@@ -142,6 +151,7 @@ public class BlogUser {
 	 * 
 	 * @return user's nickname
 	 */
+	@Column(nullable = false, unique = true)
 	public String getNick() {
 		return nick;
 	}
@@ -161,6 +171,7 @@ public class BlogUser {
 	 * 
 	 * @return password in hashed format
 	 */
+	@Column(nullable = false)
 	public String getPasswordHash() {
 		return passwordHash;
 	}
@@ -180,6 +191,7 @@ public class BlogUser {
 	 * 
 	 * @return current stored email
 	 */
+	@Column(nullable = false)
 	public String getEmail() {
 		return email;
 	}
@@ -192,6 +204,23 @@ public class BlogUser {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Override
+	public int hashCode() {
+		return id.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+
+		return ((BlogUser) obj).id == id;
 	}
 
 }
