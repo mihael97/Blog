@@ -32,8 +32,8 @@ public class JPADAOImpl implements DAO {
 	public BlogUser getUser(String userName) {
 		@SuppressWarnings("unchecked")
 		List<BlogUser> users = JPAEMProvider.getEntityManager()
-				.createQuery("SELECT a FROM BlogUser AS a WHERE a.nick:=z").setParameter("z", userName).getResultList();
-		return users.get(0);
+				.createQuery("SELECT a FROM BlogUser AS a WHERE a.nick=:z").setParameter("z", userName).getResultList();
+		return users != null && users.size() != 0 ? users.get(0) : null;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -44,10 +44,17 @@ public class JPADAOImpl implements DAO {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BlogEntry> getBlogEntries(String user) {
-		Query query = JPAEMProvider.getEntityManager().createQuery("SELECT a FROM BlogEntry AS a WHERE a.creator:=o");
-		query.setParameter("o", user);
-		return (List<BlogEntry>) query.getResultList();
+	public List<BlogEntry> getBlogEntries(Long id) {
+		try {
+			BlogUser user = JPAEMProvider.getEntityManager().find(BlogUser.class, id);
+			return (user != null)
+					? JPAEMProvider.getEntityManager()
+							.createQuery("SELECT DISTINCT a FROM BlogEntry AS a WHERE a.creator=:o")
+							.setParameter("o", user).getResultList()
+					: null;
+		} catch (Exception ex) {
+			throw new DAOException("An error has occurred while obtaining the list of entries.", ex);
+		}
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import hr.fer.zemris.java.tecaj_13.util.Constants;
  * @author Mihael
  *
  */
+@WebServlet("/servleti/comment/")
 public class CommentServlet extends HttpServlet {
 	/**
 	 * serialVersionUID
@@ -47,7 +49,7 @@ public class CommentServlet extends HttpServlet {
 		comment.setBlogEntry(entry);
 		comment.setUsersEMail(creator.getEmail());
 		comment.setPostedOn(new Date());
-		
+
 		DAOProvider.getDAO().addComment(comment);
 
 		resp.sendRedirect(

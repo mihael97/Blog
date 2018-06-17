@@ -35,17 +35,20 @@ public class LoginServlet extends HttpServlet {
 	 *            - {@link HttpServletResponse}
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String user = req.getParameter("nick");
 		String password = req.getParameter("password");
+		System.out.println("\n\n\nLogin for user " + user + " with password " + Util.hashPassword(password));
 
 		if (DAOProvider.getDAO().checkUser(user, Util.hashPassword(password))) {
 			addInSession(req, user, password);
 		} else {
 			req.setAttribute("nickname", user);
 			req.setAttribute("loginError", "Invalid user name or password");
-			req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/index.jsp").forward(req, resp);
 		}
+
+		req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
+
 	}
 
 	/**

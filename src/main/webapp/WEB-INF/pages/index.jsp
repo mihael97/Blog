@@ -34,8 +34,8 @@
 	</form>
 	<h2>
 		New here? If you want to part of our community,click <a
-			href="<%=request.getContextPath()%>\WEB-INF\pages\register.jsp">here</a>
-		for registration!
+			href=" <%=request.getContextPath()%>/servleti/redirect">here</a> for
+		registration!
 	</h2>
 	<%
 		List<BlogUser> blogUsers = DAOProvider.getDAO().getUsers();
@@ -48,8 +48,12 @@
 		</c:when>
 		<c:otherwise>
 			<h3>Here is list of registered user. Be one of them</h3>
+			<br>
 			<c:forEach var="struc" items="<%=blogUsers%>">
-				<p>${struc.getNick()}</p>
+				<a
+					href="<%=request.getContextPath()%>/servleti/author/
+					${struc.getNick()}">${struc.getNick()}</a>
+				<br>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
+import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
 
 @WebServlet("/servleti/author/*")
@@ -33,10 +34,11 @@ public class AuthorServlet extends HttpServlet {
 		req.setAttribute("nickname", extraArray[1]);
 
 		if (extraArray.length == 2) {
-			List<BlogEntry> entries = DAOProvider.getDAO().getBlogEntries(extraArray[1]);
+			BlogUser user=DAOProvider.getDAO().getUser(extraArray[1]);
+			List<BlogEntry> entries = DAOProvider.getDAO().getBlogEntries(user.getId());
 			req.setAttribute("entries", entries);
 
-			req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/author.jsp");
+			req.getRequestDispatcher("/WEB-INF/pages/author.jsp");
 
 			return;
 		}
@@ -54,7 +56,7 @@ public class AuthorServlet extends HttpServlet {
 		} else {
 			try {
 				long entryId = Long.parseLong(extraArray[2]);
-
+				
 				BlogEntry entry = DAOProvider.getDAO().getBlogEntry(entryId);
 
 				if (entry == null || !entry.getCreator().getNick().equals(extraArray[1])) {

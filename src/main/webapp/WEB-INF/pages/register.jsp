@@ -8,8 +8,8 @@
 <html>
 <body>
 	<%!private String getError(HttpServletRequest req, String string) {
-		String str = String.valueOf(req.getAttribute(string));
-		return str == null ? "" : str;
+		Object str = req.getAttribute(string);
+		return str == null ? "" : String.valueOf(str);
 	}%>
 	<h1>New user registration</h1>
 	<form action="<%=request.getContextPath()%>/servleti/register"

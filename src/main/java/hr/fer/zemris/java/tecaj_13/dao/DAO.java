@@ -57,11 +57,11 @@ public interface DAO {
 	/**
 	 * Method returns all entries made by given user
 	 * 
-	 * @param user
+	 * @param id
 	 *            - user name
 	 * @return {@link List} of {@link BlogEntry}s which owner is given user
 	 */
-	public List<BlogEntry> getBlogEntries(String user);
+	public List<BlogEntry> getBlogEntries(Long id);
 
 	public void addComment(BlogComment comment);
 

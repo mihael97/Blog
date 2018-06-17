@@ -32,10 +32,6 @@ public class RegisterServlet extends HttpServlet {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Email pattern
-	 */
-	private static final String EMAIL_PATTERN = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
 
 	/**
 	 * Method accepts registration parameters by URL parameters and checks if user
@@ -44,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
 	 * Otherwise,request is redirected to registration page with appropriate message
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String nick = req.getParameter("nick");
 		String email = req.getParameter("email");
 
@@ -55,10 +51,14 @@ public class RegisterServlet extends HttpServlet {
 			blogUser.setFirstName(req.getParameter("firstName"));
 			blogUser.setLastName(req.getParameter("lastName"));
 			blogUser.setPasswordHash(Util.hashPassword(req.getParameter("password")));
-			
+
+			System.out.println("\n\nFor user " + blogUser.getNick() + "=" + blogUser.getPasswordHash());
+
 			DAOProvider.getDAO().addUser(blogUser);
+
+			req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
 		} else { // error happened
-			req.getRequestDispatcher(req.getContextPath() + "/WEB-INF/pages/register.jsp");
+			req.getRequestDispatcher("/WEB-INF/pages/register.jsp");
 		}
 	}
 
@@ -77,45 +77,8 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	private boolean checkParameters(String nick, String eMail, HttpServletRequest req) {
 
-		return checkEmail(eMail, req) && checkNick(nick, req);
-	}
-
-	/**
-	 * Method checks if nickname is valid<br>
-	 * Nickname is valid if it is <code>null</code> or there is not registered user
-	 * with same nickname
-	 * 
-	 * @param nick
-	 *            - nickname
-	 * @param req
-	 *            - request
-	 * @return <code>true</code> if nickname is valid,otherwise <code>false</code>
-	 */
-	private boolean checkNick(String nick, HttpServletRequest req) {
-		if (nick == null) {
-			return true;
-		}
-
-		return DAOProvider.getDAO().getUser(nick) == null;
-	}
-
-	/**
-	 * With pattern usage,method checks if given <code>email</code> is in valid form
-	 * 
-	 * @param eMail
-	 *            - given email
-	 * @param req
-	 *            - request
-	 * @return <code>true</code> if email is valid,otherwise <code>false</code>
-	 */
-	private boolean checkEmail(String eMail, HttpServletRequest req) {
-		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-
-		if (!pattern.matcher(eMail).matches()) {
-			req.setAttribute("errorEmail", "Email address in not in valid form!");
-			return false;
-		}
-
-		return true;
+		boolean resposen = DAOProvider.getDAO().getUser(nick) == null;
+		System.out.println(resposen);
+		return resposen;
 	}
 }

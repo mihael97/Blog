@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Mihael
  *
  */
+@WebServlet("/servleti/main/")
 public class MainServlet extends HttpServlet {
 	/**
 	 * serialVersionUID
