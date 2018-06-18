@@ -27,8 +27,7 @@ public class EntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Method splits parameters from received request for parameters and creates new
-	 * entry
+	 * Method splits parameters from received request and creates new entry
 	 * 
 	 * @param req
 	 *            - {@link HttpServletRequest}

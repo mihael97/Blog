@@ -38,7 +38,6 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String user = req.getParameter("nick");
 		String password = req.getParameter("password");
-		System.out.println("\n\n\nLogin for user " + user + " with password " + Util.hashPassword(password));
 
 		if (req.getSession().getAttribute(Constants.NICK) != null) {// somebody is alredy registered
 			req.setAttribute("errorMessage",
