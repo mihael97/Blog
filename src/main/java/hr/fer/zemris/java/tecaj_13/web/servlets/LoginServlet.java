@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		String user = req.getParameter("nick");
 		String password = req.getParameter("password");
 
-		if (req.getSession().getAttribute(Constants.NICK) != null) {// somebody is alredy registered
+		if (req.getSession().getAttribute(Constants.NICK) != null) {// somebody is already registered
 			req.setAttribute("errorMessage",
 					"Other user is registered. Log out from registered user and then try again");
 

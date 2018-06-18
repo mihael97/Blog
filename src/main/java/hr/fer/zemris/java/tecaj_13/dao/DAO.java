@@ -41,11 +41,11 @@ public interface DAO {
 	/**
 	 * Method returns user which has given user name
 	 * 
-	 * @param userName
+	 * @param username
 	 *            - user name
 	 * @return user with given user name
 	 */
-	public BlogUser getUser(String userName);
+	public BlogUser getUser(String username);
 
 	/**
 	 * Method returns list of registered users
@@ -57,11 +57,11 @@ public interface DAO {
 	/**
 	 * Method returns all entries made by given user
 	 * 
-	 * @param id
+	 * @param username
 	 *            - user name
 	 * @return {@link List} of {@link BlogEntry}s which owner is given user
 	 */
-	public List<BlogEntry> getBlogEntries(Long id);
+	public List<BlogEntry> getBlogEntries(String username);
 
 	/**
 	 * Method adds comment to blog entry

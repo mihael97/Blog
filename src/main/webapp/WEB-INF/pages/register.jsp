@@ -28,7 +28,7 @@
 	<%
 		} else {
 	%>
-	<p>There is no loged user</p>
+	<p>There is no logged user</p>
 	<%
 		}
 	%>
@@ -41,8 +41,7 @@
 			type="email" name="email"><br> Nick: <input type="text"
 			name="nick"><br> Password: <input type="password"
 			name="password"><br>
-		<%=getError(request)%>
-		<input type="submit" value="Register">
+		<%=getError(request)%><br> <input type="submit" value="Register">
 	</form>
 </body>
 </html>

@@ -22,8 +22,8 @@ public class Logout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Method clears all informations about registered user and redirects to mai
-	 * page
+	 * Method clears all informations about registered user and redirects request to
+	 * main page
 	 * 
 	 * @param req
 	 *            - {@link HttpServletRequest}

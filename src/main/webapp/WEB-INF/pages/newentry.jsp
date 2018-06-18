@@ -22,7 +22,7 @@
 	<%
 		} else {
 	%>
-	<p>There is no loged user</p>
+	<p>There is no logged user</p>
 	<%
 		}
 	%>

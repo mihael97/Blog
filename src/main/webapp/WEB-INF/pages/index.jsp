@@ -16,11 +16,12 @@
 		<%
 			if (request.getAttribute("nickname") != null) {
 		%>
-		Nick: <input type="text" name="nick" value="${requestScope.nickname}"><br>
+		User name: <input type="text" name="nick"
+			value="${requestScope.nickname}"><br>
 		<%
 			} else {
 		%>
-		Nick: <input type="text" name="nick"><br>
+		User name: <input type="text" name="nick"><br>
 
 		<%
 			}

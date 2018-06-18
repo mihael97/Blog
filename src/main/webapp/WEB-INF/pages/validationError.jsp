@@ -8,7 +8,7 @@
 <!DOCTYPE>
 <html>
 <body bgcolor="cyan">
-	<h2>You tried do access informations which cannot be showed to
+	<h2>You tried do access informations which cannot be shown to
 		current registered user!</h2>
 	<a href="<%=request.getContextPath()%>/servleti/main">Home page</a>
 </body>

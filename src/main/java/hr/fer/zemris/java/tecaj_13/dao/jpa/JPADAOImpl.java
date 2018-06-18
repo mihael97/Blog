@@ -11,8 +11,9 @@ import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 
 /**
- * Class implements interface {@link DAO} and contains implementation of methods
- * provided by interface
+ * Class implements interface {@link DAO} and contains implementation provided
+ * methods<br>
+ * We are using this methods for communicating with database
  * 
  * @author Mihael
  *
@@ -52,10 +53,10 @@ public class JPADAOImpl implements DAO {
 	 * @see hr.fer.zemris.java.tecaj_13.dao.DAO#getUser(java.lang.String)
 	 */
 	@Override
-	public BlogUser getUser(String userName) {
+	public BlogUser getUser(String username) {
 		@SuppressWarnings("unchecked")
 		List<BlogUser> users = JPAEMProvider.getEntityManager()
-				.createQuery("SELECT a FROM BlogUser AS a WHERE a.nick=:z").setParameter("z", userName).getResultList();
+				.createQuery("SELECT a FROM BlogUser AS a WHERE a.nick=:z").setParameter("z", username).getResultList();
 		return users != null && users.size() != 0 ? users.get(0) : null;
 	}
 
@@ -77,9 +78,9 @@ public class JPADAOImpl implements DAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BlogEntry> getBlogEntries(Long id) {
-		BlogUser user = JPAEMProvider.getEntityManager().find(BlogUser.class, id);
-		return JPAEMProvider.getEntityManager().createQuery("select b from BlogEntry as b where b.creator=:creator")
+	public List<BlogEntry> getBlogEntries(String username) {
+		BlogUser user = getUser(username);
+		return JPAEMProvider.getEntityManager().createQuery("SELECT b FROM BlogEntry as b WHERE b.creator=:creator")
 				.setParameter("creator", user).getResultList();
 
 	}

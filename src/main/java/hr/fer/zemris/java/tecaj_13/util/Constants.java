@@ -1,8 +1,8 @@
 package hr.fer.zemris.java.tecaj_13.util;
 
 /**
- * Abstract class contains keys for map storing of informations about current
- * active user a
+ * Abstract class contains keys for mapping of informations about current logged
+ * user
  * 
  * @author Mihael
  *

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Class represents bridge between main page and registration form
  * 
- * @author ime
+ * @author Mihael
  *
  */
 @WebServlet("/servleti/redirect")

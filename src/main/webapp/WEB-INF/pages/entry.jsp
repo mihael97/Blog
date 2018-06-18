@@ -23,7 +23,7 @@
 	<%
 		} else {
 	%>
-	<p>There is no loged user</p>
+	<p>There is no logged user</p>
 	<%
 		}
 	%>
@@ -42,7 +42,7 @@
 		Last modified at :
 		<%=entry.getLastModifiedAt()%></p>
 	<%
-		String currentUser = String.valueOf(request.getSession().getAttribute("current.user.nick"));
+		String currentUser = String.valueOf(request.getSession().getAttribute(Constants.NICK));
 
 		if (nick.equals(currentUser)) {
 	%>

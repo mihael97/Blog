@@ -23,7 +23,7 @@
 	<%
 		} else {
 	%>
-	<p>There is no loged user</p>
+	<p>There is no logged user</p>
 	<%
 		}
 	%>
@@ -42,7 +42,7 @@
 		</c:forEach>
 	</table>
 	<%
-		if (String.valueOf(request.getSession().getAttribute("current.user.nick")).equals(userName)) {
+		if (String.valueOf(request.getSession().getAttribute(Constants.NICK)).equals(userName)) {
 	%>
 	<a
 		href="<%=request.getContextPath()%>/servleti/author/<%=userName%>/new">Add
