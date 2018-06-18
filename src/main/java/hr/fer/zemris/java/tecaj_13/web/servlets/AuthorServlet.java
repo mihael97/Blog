@@ -40,13 +40,6 @@ public class AuthorServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String extra = req.getPathInfo();
 
-		if (extra == null) {
-			req.setAttribute("errorMessage", "Number of aruments must be at least two!");
-			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
-
-			return;
-		}
-
 		String[] extraArray = extra.split("/");
 
 		if (extraArray.length < 2) {
@@ -79,21 +72,8 @@ public class AuthorServlet extends HttpServlet {
 				req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
 			}
 		} else {
-			try {
-				long entryId = Long.parseLong(extraArray[2]);
-
-				BlogEntry entry = DAOProvider.getDAO().getBlogEntry(entryId);
-
-				if (entry == null || !entry.getCreator().getNick().equals(extraArray[1])) {
-					req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
-					return;
-				}
-
-				req.setAttribute("entry", entry);
-				req.getRequestDispatcher("/WEB-INF/pages/entry.jsp").forward(req, resp);
-			} catch (NumberFormatException e) {
-				throw new RuntimeException();
-			}
+			req.setAttribute("entryID", extraArray[2]);
+			req.getRequestDispatcher("/servleti/catchentry").forward(req, resp);
 		}
 	}
 }

@@ -42,17 +42,12 @@ public class CommentServlet extends HttpServlet {
 		String message = req.getParameter("message");
 		BlogEntry entry = DAOProvider.getDAO().getBlogEntry(Long.parseLong(req.getParameter("entryID")));
 		BlogUser creator = DAOProvider.getDAO().getUser(String.valueOf(req.getSession().getAttribute(Constants.NICK)));
-		if (creator == null) {
-			req.setAttribute("errorMessage",
-					"For posting comments you must be logged in. Go to main page for logging in or creating account");
-			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
-			return;
-		}
+
 		BlogComment comment = new BlogComment();
 
 		comment.setMessage(message);
 		comment.setBlogEntry(entry);
-		comment.setUsersEMail(creator.getEmail());
+		comment.setUsersEMail(creator == null ? "Unknown user" : creator.getEmail());
 		comment.setPostedOn(new Date());
 
 		DAOProvider.getDAO().addComment(comment);

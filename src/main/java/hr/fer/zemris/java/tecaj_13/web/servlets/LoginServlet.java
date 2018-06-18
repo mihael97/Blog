@@ -49,13 +49,15 @@ public class LoginServlet extends HttpServlet {
 
 		if (DAOProvider.getDAO().checkUser(user, Util.hashPassword(password))) {
 			addInSession(req, user, password);
+
+			resp.sendRedirect(req.getContextPath() + "/index.jsp");
+			return;
 		} else {
 			req.setAttribute("nickname", user);
 			req.setAttribute("loginError", "Invalid user name or password");
 		}
 
 		req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
-
 	}
 
 	/**
