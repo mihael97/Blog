@@ -5,7 +5,7 @@
 <%@  page session="true"%>
 <!DOCTYPE>
 <html>
-<body>
+<body bgcolor="cyan">
 
 	<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
 	<br>
@@ -14,8 +14,9 @@
 		if (request.getSession().getAttribute(Constants.NICK) != null) {
 	%>
 	<p>
-		Hello<br>
-		<%=request.getSession().getAttribute(Constants.NICK)%><a
+		Hello
+		<%=request.getSession().getAttribute(Constants.FIRST_NAME)%>
+		<%=request.getSession().getAttribute(Constants.LAST_NAME)%><br> <a
 			href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
 	</p>
 	<%
@@ -30,7 +31,7 @@
 	<form action="<%=request.getContextPath()%>/servleti/newentry">
 		Title:<input type="text" name="title"><br>
 		<textarea rows="10" cols="50" name="text">Enter your entry text</textarea>
-		<input type="submit" value="Post comment">
+		<input type="submit" value="Post entry">
 	</form>
 </body>
 </html>

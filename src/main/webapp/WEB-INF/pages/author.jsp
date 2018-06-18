@@ -7,7 +7,7 @@
 
 <!DOCTYPE>
 <html>
-<body>
+<body bgcolor="cyan">
 	<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
 	<br>
 
@@ -15,8 +15,9 @@
 		if (request.getSession().getAttribute(Constants.NICK) != null) {
 	%>
 	<p>
-		Hello<br>
-		<%=request.getSession().getAttribute(Constants.NICK)%><a
+		Hello
+		<%=request.getSession().getAttribute(Constants.FIRST_NAME)%>
+		<%=request.getSession().getAttribute(Constants.LAST_NAME)%><br> <a
 			href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
 	</p>
 	<%

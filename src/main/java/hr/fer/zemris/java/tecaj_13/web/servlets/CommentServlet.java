@@ -45,7 +45,9 @@ public class CommentServlet extends HttpServlet {
 
 		creator = DAOProvider.getDAO().getUser(String.valueOf(req.getSession().getAttribute(Constants.NICK)));
 		if (creator == null) {
-			req.getRequestDispatcher("/WEB-INF/pages/validationError.jsp").forward(req, resp);
+			req.setAttribute("errorMessage",
+					"For posting comments you must be logged in. Go to main page for logging in or creating account");
+			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
 			return;
 		}
 		BlogComment comment = new BlogComment();

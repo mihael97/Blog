@@ -8,9 +8,9 @@
 <%@  page session="true"%>
 <!DOCTYPE>
 <html>
-<body>
+<body bgcolor="cyan">
 	<h1>Main page</h1>
-	<h2>Already registered? Please log in from more features</h2>
+	<h2>Already registered? Please log in for more features</h2>
 	<form action="<%=request.getContextPath()%>/servleti/login"
 		method="post">
 		<%

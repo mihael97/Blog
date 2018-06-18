@@ -1,8 +1,6 @@
 package hr.fer.zemris.java.tecaj_13.web.servlets;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
 
 			req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
 		} else { // error happened
-			req.getRequestDispatcher("/WEB-INF/pages/register.jsp");
+			req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
 		}
 	}
 
@@ -76,9 +74,12 @@ public class RegisterServlet extends HttpServlet {
 	 *         <code>false</code>
 	 */
 	private boolean checkParameters(String nick, String eMail, HttpServletRequest req) {
+		BlogUser user = DAOProvider.getDAO().getUser(nick);
+		if (user == null) {
+			return true;
+		}
 
-		boolean resposen = DAOProvider.getDAO().getUser(nick) == null;
-		System.out.println(resposen);
-		return resposen;
+		req.setAttribute("error", "User name is already taken,please choose another one!");
+		return false;
 	}
 }

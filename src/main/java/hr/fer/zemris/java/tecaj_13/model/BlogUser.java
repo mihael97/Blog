@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import net.bytebuddy.matcher.FailSafeMatcher;
-
 /**
  * Class represents every blog user <br>
  * Every blog user is described with attributes:
@@ -61,6 +59,9 @@ public class BlogUser {
 	 */
 	private String email;
 
+	/**
+	 * List of all {@link BlogEntry}'s made by user
+	 */
 	private List<BlogEntry> entries;
 
 	/**
@@ -215,20 +216,41 @@ public class BlogUser {
 		this.email = email;
 	}
 
+	/**
+	 * Method returns list of {@link BlogEntry}s made by user
+	 * 
+	 * @return list of {@link BlogEntry}s
+	 */
 	@OneToMany(mappedBy = "creator", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
 	public List<BlogEntry> getEntries() {
 		return entries;
 	}
 
+	/**
+	 * Method sets list of {@link BlogEntry}'s created by user
+	 * 
+	 * @param entries
+	 *            - entries
+	 */
 	public void setEntries(List<BlogEntry> entries) {
 		this.entries = entries;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return id.hashCode();
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

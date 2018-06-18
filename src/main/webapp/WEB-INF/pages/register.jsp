@@ -7,9 +7,9 @@
 <!DOCTYPE>
 
 <html>
-<body>
-	<%!private String getError(HttpServletRequest req, String string) {
-		Object str = req.getAttribute(string);
+<body bgcolor="cyan">
+	<%!private String getError(HttpServletRequest req) {
+		Object str = req.getAttribute("error");
 		return str == null ? "" : String.valueOf(str);
 	}%>
 
@@ -20,8 +20,9 @@
 		if (request.getSession().getAttribute(Constants.NICK) != null) {
 	%>
 	<p>
-		Hello<br>
-		<%=request.getSession().getAttribute(Constants.NICK)%><a
+		Hello
+		<%=request.getSession().getAttribute(Constants.FIRST_NAME)%>
+		<%=request.getSession().getAttribute(Constants.LAST_NAME)%><br> <a
 			href="<%=request.getContextPath()%>/servleti/logout">Log out</a>
 	</p>
 	<%
@@ -35,16 +36,12 @@
 	<h1>New user registration</h1>
 	<form action="<%=request.getContextPath()%>/servleti/register"
 		method="post">
-		First Name: <input type="text" name="firstName"><br>
-		<%=getError(request, "errorFirstName")%>
-		Last Name: <input type="text" name="lastName"><br>
-		<%=getError(request, "errorLastName")%>
-		E-mail: <input type="email" name="email"><br>
-		<%=getError(request, "errorEmail")%>
-		Nick: <input type="text" name="nick"><br>
-		<%=getError(request, "errorNick")%>
-		Password: <input type="password" name="password"><br>
-		<%=getError(request, "errorPassword")%>
+		First Name: <input type="text" name="firstName"><br> Last
+		Name: <input type="text" name="lastName"><br> E-mail: <input
+			type="email" name="email"><br> Nick: <input type="text"
+			name="nick"><br> Password: <input type="password"
+			name="password"><br>
+		<%=getError(request)%>
 		<input type="submit" value="Register">
 	</form>
 </body>

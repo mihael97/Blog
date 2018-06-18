@@ -40,6 +40,14 @@ public class LoginServlet extends HttpServlet {
 		String password = req.getParameter("password");
 		System.out.println("\n\n\nLogin for user " + user + " with password " + Util.hashPassword(password));
 
+		if (req.getSession().getAttribute(Constants.NICK) != null) {// somebody is alredy registered
+			req.setAttribute("errorMessage",
+					"Other user is registered. Log out from registered user and then try again");
+
+			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
+			return;
+		}
+
 		if (DAOProvider.getDAO().checkUser(user, Util.hashPassword(password))) {
 			addInSession(req, user, password);
 		} else {

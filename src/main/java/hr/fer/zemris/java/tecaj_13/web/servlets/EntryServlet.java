@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,8 +13,29 @@ import hr.fer.zemris.java.tecaj_13.dao.DAOProvider;
 import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
 
+/**
+ * Class provides implementation for entry creating
+ * 
+ * @author Mihael
+ *
+ */
 @WebServlet("/servleti/newentry")
 public class EntryServlet extends HttpServlet {
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Method splits parameters from received request for parameters and creates new
+	 * entry
+	 * 
+	 * @param req
+	 *            - {@link HttpServletRequest}
+	 * 
+	 * @param resp
+	 *            - {@link HttpServletResponse}
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String title = req.getParameter("title");

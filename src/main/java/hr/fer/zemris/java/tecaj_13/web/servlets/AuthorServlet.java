@@ -14,20 +14,46 @@ import hr.fer.zemris.java.tecaj_13.model.BlogEntry;
 import hr.fer.zemris.java.tecaj_13.model.BlogUser;
 import hr.fer.zemris.java.tecaj_13.util.Constants;
 
+/**
+ * Class represents {@link HttpServlet} that has implementation for
+ * editing,creating and catching entries by owner
+ * 
+ * @author Mihael
+ *
+ */
 @WebServlet("/servleti/author/*")
 public class AuthorServlet extends HttpServlet {
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Method accepts URL from request. After splitting,depending on number and type
+	 * of parameters,it redirects operation to specific {@link HttpServlet}
+	 * 
+	 * @param req
+	 *            - {@link HttpServletRequest}
+	 * @param resp
+	 *            - {@link HttpServletResponse}
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String extra = req.getPathInfo();
 
 		if (extra == null) {
+			req.setAttribute("errorMessage", "Number of aruments must be at least two!");
+			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
+
 			return;
 		}
 
 		String[] extraArray = extra.split("/");
 
 		if (extraArray.length < 2) {
-			// error
+			req.setAttribute("errorMessage", "Number of aruments must be at least two!");
+			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
+
 			return;
 		}
 
@@ -42,6 +68,7 @@ public class AuthorServlet extends HttpServlet {
 
 			return;
 		}
+
 
 		if (extraArray[2].equals("new") || extraArray[2].equals("edit")) {
 			if (req.getSession().getAttribute(Constants.NICK).equals(extraArray[1])) {
