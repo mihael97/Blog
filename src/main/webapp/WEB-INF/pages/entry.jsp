@@ -59,25 +59,20 @@
 		<p>${comment.getMessage()}</p>
 	</c:forEach>
 	<h3>Add new comment</h3>
-	<%
-		if (String.valueOf(request.getSession().getAttribute("current.user.nick")) != null) {
-	%>
 	<form action="<%=request.getContextPath()%>/servleti/comment"
 		method="post">
+		<input type="hidden" name="entryID" value=<%=entry.getId()%>><br>
+		<%
+			if (request.getSession().getAttribute(Constants.NICK) == null) {
+		%>
+		<h4>You are not logged. Please enter your email address</h4>
+		<input type="email" name="email">
+		<%
+			}
+		%>
 		<input type="hidden" name="entryID" value=<%=entry.getId()%>><br>
 		<textarea rows="10" cols="50" name="message">Enter your comment</textarea>
 		<input type="submit" value="Post comment">
 	</form>
-	<%
-		} else {
-	%>
-	<h4>
-		You should <a
-			href="<%=request.getContextPath()%>/WEB-INF/pages/index.jsp">register</a>
-		for post comments
-	</h4>
-	<%
-		}
-	%>
 </body>
 </html>

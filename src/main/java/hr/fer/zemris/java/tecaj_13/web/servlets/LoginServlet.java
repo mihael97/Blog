@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 		if (DAOProvider.getDAO().checkUser(user, Util.hashPassword(password))) {
 			addInSession(req, user, password);
 
-			resp.sendRedirect(req.getContextPath() + "/index.jsp");
+			resp.sendRedirect(req.getContextPath() + "/servleti/main");
 			return;
 		} else {
 			req.setAttribute("nickname", user);

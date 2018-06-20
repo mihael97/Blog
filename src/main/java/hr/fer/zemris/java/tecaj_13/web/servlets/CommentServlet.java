@@ -47,7 +47,7 @@ public class CommentServlet extends HttpServlet {
 
 		comment.setMessage(message);
 		comment.setBlogEntry(entry);
-		comment.setUsersEMail(creator == null ? "Unknown user" : creator.getEmail());
+		comment.setUsersEMail(creator == null ? req.getParameter("email") : creator.getEmail());
 		comment.setPostedOn(new Date());
 
 		DAOProvider.getDAO().addComment(comment);
