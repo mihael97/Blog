@@ -42,6 +42,12 @@ public class EditServlet extends HttpServlet {
 
 		BlogEntry entry = DAOProvider.getDAO().getBlogEntry(entryID);
 
+		if (entry.getCreator().getNick() != req.getSession().getAttribute(Constants.NICK)) {
+			req.setAttribute("errorMessage", "You cannot edit entries from other users!");
+			req.getRequestDispatcher("/WEB-INF/pages/error.jsp").forward(req, resp);
+			return;
+		}
+
 		entry.setText(text);
 		entry.setTitle(title);
 		entry.setLastModifiedAt(new Date());

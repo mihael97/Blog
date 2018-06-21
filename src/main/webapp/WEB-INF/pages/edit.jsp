@@ -30,6 +30,10 @@
 		}
 	%>
 
+	<%
+		if (!entry.getCreator().getNick().equals(request.getSession().getAttribute(Constants.NICK))) {
+	%>
+
 	<h2>Edit entry</h2>
 	<form action="<%=request.getContextPath()%>/servleti/edit"
 		method="post">
@@ -39,5 +43,14 @@
 		<textarea rows="10" cols="50" name="text"><%=entry.getText()%></textarea>
 		<input type="submit" value="Edit entry">
 	</form>
+
+	<%
+		} else {
+	%>
+	<h2>You cannot edit entries by other users!</h2>
+	<a href="<%=request.getContextPath()%>/servleti/main">Homepage</a>
+	<%
+		}
+	%>
 </body>
 </html>
