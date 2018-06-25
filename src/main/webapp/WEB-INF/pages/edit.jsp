@@ -31,7 +31,7 @@
 	%>
 
 	<%
-		if (!entry.getCreator().getNick().equals(request.getSession().getAttribute(Constants.NICK))) {
+		if (entry.getCreator().getNick().equals(request.getSession().getAttribute(Constants.NICK))) {
 	%>
 
 	<h2>Edit entry</h2>
